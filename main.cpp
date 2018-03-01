@@ -4,6 +4,11 @@
 
 using namespace std;
 
+void glutTimer(int value){
+  glutPostRedisplay();
+  glutTimerFunc(1, glutTimer, 1);
+}
+
 //Entity class
 class Entity {
   public:
@@ -52,10 +57,10 @@ void Entity::render() {
 class Renderer {
   public:
     vector <Entity> entities;
-    Entity newEntity(int x, int y, int w, int h, int angle, float r, float g, float b);
-    Entity newEntity2(int x, int y, int w, int h, int angle, float r, float g, float b);
+    void newEntity(int, int, int, int, int, float, float, float);
+    void newEntity2(int, int, int, int, int, float, float, float);
     void render();
-    Renderer(int window_h, int window_w, int argc, char** argv);
+    Renderer(int, int, int, char**);
   private:
     int entitiesAmount;
     void setupRendering();
@@ -74,35 +79,33 @@ void Renderer::setupRendering() {
 }
 
 Renderer::Renderer(int window_h, int window_w, int argc, char** argv) {
+  entitiesAmount = 0;
+
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
   glutInitWindowPosition(100, 100);
   glutInitWindowSize(window_h, window_w);
   glutCreateWindow("Test");
 
+  glutTimerFunc(1, glutTimer, 1);
+
   glOrtho(0.f, window_h, window_w, 0.f, 0.f, 1.f);
 
   setupRendering();
 
   glutMainLoop();
-
-  entitiesAmount = 0;
 }
 
-Entity Renderer::newEntity(int x, int y, int w, int h, int angle, float r, float g, float b) {
+void Renderer::newEntity(int x, int y, int w, int h, int angle, float r, float g, float b) {
   Entity entity(x, y, w, h, angle, r, g, b);
 
   entities.push_back(entity);
 
   entitiesAmount = entitiesAmount + 1;
-
-  return entity;
 }
 
-Entity Renderer::newEntity2(int x, int y, int w, int h, int angle, float r, float g, float b) {
+void Renderer::newEntity2(int x, int y, int w, int h, int angle, float r, float g, float b) {
   Entity entity(x, y, w, h, angle, r, g, b);
-
-  return entity;
 }
 
 void Renderer::render() {
@@ -115,9 +118,15 @@ void Renderer::render() {
   //Drawes rectangle
   glRectf(50, 50, 50 + 100, 50 + 100);
 
+  newEntity(10, 10, 100, 100, 0, 1, 0, 0);
+  newEntity(20, 20, 100, 100, 0, 1, 0, 0);
+  newEntity(30, 30, 100, 100, 0, 1, 0, 0);
+
   for(int i = 0; i < entitiesAmount; i++) {
-    newEntity2(10*i, 10*i, 100, 100, 0, 1, 0, 0).render();
+    entities[i].render();
   }
+
+  newEntity(40, 40, 100, 100, 0, 1, 0, 0);
 
   //Render
   glutSwapBuffers();
@@ -126,5 +135,7 @@ void Renderer::render() {
 int main(int argc, char** argv) {
   Renderer renderer(640, 480, argc, argv);
 
-  renderer.newEntity(10, 10, 100, 100, 0, 1, 0, 0);
+  renderer.newEntity(50, 50, 100, 100, 0, 1, 0, 0);
+
+  renderer.newEntity(70, 70, 100, 100, 0, 1, 0, 0);
 }

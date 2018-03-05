@@ -62,9 +62,9 @@ void Entity::render() {
 class Renderer {
   public:
     vector <Entity> entities;
-    void newEntity(int, int, int, int, int, float, float, float);
-    void newEntity2(int, int, int, int, int, float, float, float);
+    Entity newEntity(int, int, int, int, int, float, float, float);
     void render();
+    void init();
     Renderer(int, int, int, char**);
   private:
     int entitiesAmount;
@@ -97,41 +97,29 @@ Renderer::Renderer(int window_h, int window_w, int argc, char** argv) {
   glOrtho(0.f, window_h, window_w, 0.f, 0.f, 1.f);
 
   setupRendering();
+}
 
+void Renderer::init() {
   glutMainLoop();
 }
 
-void Renderer::newEntity(int x, int y, int w, int h, int angle, float r, float g, float b) {
+Entity Renderer::newEntity(int x, int y, int w, int h, int angle, float r, float g, float b) {
   Entity entity(x, y, w, h, angle, r, g, b);
 
   entities.push_back(entity);
 
   entitiesAmount = entitiesAmount + 1;
-}
 
-void Renderer::newEntity2(int x, int y, int w, int h, int angle, float r, float g, float b) {
-  Entity entity(x, y, w, h, angle, r, g, b);
+  return entity;
 }
 
 void Renderer::render() {
   //Clear screen
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  //Sets color
-  glColor3f(0, 1, 0);
-
-  //Drawes rectangle
-  glRectf(50, 50, 50 + 100, 50 + 100);
-
-  newEntity(10, 10, 100, 100, 0, 1, 0, 0);
-  newEntity(20, 20, 100, 100, 0, 1, 0, 0);
-  newEntity(30, 30, 100, 100, 0, 1, 0, 0);
-
   for(int i = 0; i < entitiesAmount; i++) {
     entities[i].render();
   }
-
-  newEntity(40, 40, 100, 100, 0, 1, 0, 0);
 
   //Render
   glutSwapBuffers();
@@ -143,4 +131,6 @@ int main(int argc, char** argv) {
   renderer.newEntity(50, 50, 100, 100, 0, 1, 0, 0);
 
   renderer.newEntity(70, 70, 100, 100, 0, 1, 0, 0);
+
+  renderer.init();
 }

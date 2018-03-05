@@ -64,7 +64,7 @@ class Renderer {
     vector <Entity> entities;
     Entity newEntity(int, int, int, int, int, float, float, float);
     void render();
-    void init();
+    void run();
     Renderer(int, int, int, char**);
   private:
     int entitiesAmount;
@@ -99,7 +99,7 @@ Renderer::Renderer(int window_h, int window_w, int argc, char** argv) {
   setupRendering();
 }
 
-void Renderer::init() {
+void Renderer::run() {
   glutMainLoop();
 }
 
@@ -128,9 +128,9 @@ void Renderer::render() {
 int main(int argc, char** argv) {
   Renderer renderer(640, 480, argc, argv);
 
-  renderer.newEntity(50, 50, 100, 100, 0, 1, 0, 0);
+  renderer.newEntity(50, 50, 100, 100, 0, 0, 1, 0);
 
   renderer.newEntity(70, 70, 100, 100, 0, 1, 0, 0);
 
-  renderer.init();
+  renderer.run();
 }

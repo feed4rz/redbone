@@ -1,4 +1,4 @@
-#include "core.h"
+#include "../core.h"
  
 int main(int argc, char** argv) {
   Renderer renderer(640, 480, argc, argv);

@@ -37,12 +37,14 @@ List of all available methods for all classes
 
 
 ### Entity class
+The object on the screen.
 
 #### void render()
 Renders an Entity inside of a **Renderer** class
 
 
 ### Renderer class
+Stores Entities and renders them each frame.
 
 #### Entity newEntity(args)
 List of **args** in order:
@@ -55,6 +57,8 @@ List of **args** in order:
 - float **g** - Green level of Entity's color (0-1)
 - float **b** - Blue level of Entity's color (0-1)
 
-
 #### void render()
 Renders all stored Entities calling **render** method on them
+
+#### void run()
+Runs main OpenGL loop. Required to initialize rendering.

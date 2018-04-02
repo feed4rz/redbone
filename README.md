@@ -1,11 +1,11 @@
 # redbone
 OpenGL 2D Game Engine
 
-- [Compile on windows](#compile-on-windows-)
-- [Compile on mac os](#compile-on-mac-os-)
-- [Methods](#methods-)
-- - [Entity](#entity-class-)
-- - [Renderer](#renderer-class-)
+- [Compile on windows](#compile-on-windows)
+- [Compile on mac os](#compile-on-mac-os)
+- [Methods](#methods)
+- - [Entity](#entity-class)
+- - [Renderer](#renderer-class)
 
 ---
 

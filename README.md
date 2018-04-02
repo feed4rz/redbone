@@ -1,9 +1,15 @@
 # redbone
 OpenGL 2D Game Engine
 
+- [Compile on windows](#compile-on-windows-)
+- [Compile on mac os](#compile-on-mac-os-)
+- [Methods](#methods-)
+- - [Entity](#entity-class-)
+- - [Renderer](#renderer-class-)
+
 ---
 
-## Compile on windows
+# Compile on windows
 Install GCC
 Install freeglut in your **GCC_PATH**
 
@@ -15,7 +21,7 @@ g++ -o main.exe main.o -L"GCC_PATH\freeglut\lib\x64" -lfreeglut -lopengl32 -lglu
 ```
 
 
-## Compile on mac os
+# Compile on mac os
 Install HomeBrew
 
 ```
@@ -32,21 +38,21 @@ g++ -o main main.o -framework OpenGL -framework GLUT
 
 ---
 
-## Methods
+# Methods
 List of all available methods for all classes
 
 
-### Entity class
+## Entity class
 The object on the screen.
 
-#### void render()
+### void render()
 Renders an Entity inside of a **Renderer** class
 
 
-### Renderer class
+## Renderer class
 Stores Entities and renders them each frame.
 
-#### Entity newEntity(args)
+### Entity newEntity(args)
 List of **args** in order:
 - int **x** - Plain x coordinate of an Entity
 - int **y** - Plain y coordinate of an Entity
@@ -57,8 +63,8 @@ List of **args** in order:
 - float **g** - Green level of Entity's color (0-1)
 - float **b** - Blue level of Entity's color (0-1)
 
-#### void render()
+### void render()
 Renders all stored Entities calling **render** method on them
 
-#### void run()
+### void run()
 Runs main OpenGL loop. Required to initialize rendering.

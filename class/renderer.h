@@ -15,12 +15,13 @@ void glutTimer(int value){
 class Renderer {
   public:
     vector <Entity> entities;
-    Entity newEntity(int, int, int, int, int, float, float, float);
+    Entity newEntity(int, int, int, int, int, float, float, float, int);
     void render();
     void run();
+    void quickSort(vector<Entity> &, int, int);
+    void sortEntities();
     Renderer(int, int, int, char**);
   private:
-    int entitiesAmount;
     void setupRendering();
 };
 
@@ -32,14 +33,12 @@ void rendering() {
 }
 
 void Renderer::setupRendering() {
-  ::g_CurrentInstance  = this;
+  ::g_CurrentInstance = this;
   ::glutDisplayFunc(::rendering);
 }
 
 //Constructor
 Renderer::Renderer(int window_h, int window_w, int argc, char** argv) {
-  entitiesAmount = 0;
-
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
   glutInitWindowPosition(100, 100);
@@ -59,12 +58,10 @@ void Renderer::run() {
 }
 
 //Creates new Entity
-Entity Renderer::newEntity(int x, int y, int w, int h, int angle, float r, float g, float b) {
-  Entity entity(x, y, w, h, angle, r, g, b);
+Entity Renderer::newEntity(int x, int y, int w, int h, int angle, float r, float g, float b, int index) {
+  Entity entity(x, y, w, h, angle, r, g, b, index);
 
   entities.push_back(entity);
-
-  entitiesAmount = entitiesAmount + 1;
 
   return entity;
 }
@@ -74,12 +71,54 @@ void Renderer::render() {
   //Clear screen
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  for(int i = 0; i < entitiesAmount; i++) {
-    entities[i].render();
+  int index = -10000;
+  for(int i = 0; i < entities.size(); i++) {
+    if(index < entities[i].index) {
+      entities[i].render();
+      index = entities[i].index;
+    }
   }
 
   //Render
   glutSwapBuffers();
+}
+
+/* Basic quick sort */
+void Renderer::quickSort(vector <Entity> &array, int low, int high) {
+  int i = low;
+  int j = high;
+  int pivot = array[(i + j) / 2].index;
+  Entity temp(0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+  while(i <= j) {
+    while(array[i].index < pivot) {
+      i++;
+    }
+
+    while(array[j].index > pivot) {
+      j--;
+    }
+
+    if(i <= j) {
+      temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+
+      i++;
+      j--;
+    }
+  }
+
+  if(j > low) {
+    quickSort(array, low, j);
+  }
+  if (i < high) {
+    quickSort(array, i, high);
+  }
+}
+
+void Renderer::sortEntities() {
+  quickSort(entities, 0, entities.size() - 1);
 }
 
 #endif

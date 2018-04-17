@@ -12,12 +12,13 @@ class Entity {
     float r;
     float g;
     float b;
+    int index;
     void render();
-    Entity(int X, int Y, int W, int H, int ANGLE, float R, float G, float B);
+    Entity(int, int, int, int, int, float, float, float, int);
 };
 
 //Constructor
-Entity::Entity(int X, int Y, int W, int H, int ANGLE, float R, float G, float B) {
+Entity::Entity(int X, int Y, int W, int H, int ANGLE, float R, float G, float B, int INDEX) {
   x = X;
   y = Y;
   w = W;
@@ -26,6 +27,7 @@ Entity::Entity(int X, int Y, int W, int H, int ANGLE, float R, float G, float B)
   r = R;
   g = G;
   b = B;
+  index = INDEX;
 }
 
 //Renders the Entity

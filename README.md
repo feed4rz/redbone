@@ -63,6 +63,10 @@ List of **args** in order:
 - float **r** - Red level of Entity's color (0-1)
 - float **g** - Green level of Entity's color (0-1)
 - float **b** - Blue level of Entity's color (0-1)
+- int **index** - Entity index. By calling [Renderer.sortEntities](#void-sortentities) Entities are getting sorted so they are rendered in needed order.
+
+### void sortEntities()
+Sorts Entities by their **index** in ascending order
 
 ### void render()
 Renders all stored Entities calling **render** method on them

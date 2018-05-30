@@ -18,11 +18,11 @@ class Renderer {
     Entity newEntity(int, int, int, int, int, float, float, float, int);
     void render();
     void run();
-    void quickSort(vector<Entity> &, int, int);
     void sortEntities();
     Renderer(int, int, int, char**);
   private:
     void setupRendering();
+    void quickSort(vector<Entity> &, int, int);
 };
 
 Renderer* g_CurrentInstance;
